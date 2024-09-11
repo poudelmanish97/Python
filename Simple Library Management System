@@ -1,0 +1,64 @@
+class Library:
+    def __init__(self, name):
+        self.name = name
+        self.books = {}  # Dictionary to store books and their availability status
+
+    def add_book(self, book_name):
+        """Add a book to the library."""
+        if book_name in self.books:
+            print(f"'{book_name}' is already in the library.")
+        else:
+            self.books[book_name] = True
+            print(f"'{book_name}' added to the library.")
+
+    def borrow_book(self, book_name):
+        """Borrow a book from the library."""
+        if book_name in self.books and self.books[book_name]:
+            self.books[book_name] = False
+            print(f"'{book_name}' has been borrowed.")
+        elif book_name in self.books and not self.books[book_name]:
+            print(f"'{book_name}' is currently unavailable.")
+        else:
+            print(f"'{book_name}' is not in the library.")
+
+    def return_book(self, book_name):
+        """Return a borrowed book to the library."""
+        if book_name in self.books and not self.books[book_name]:
+            self.books[book_name] = True
+            print(f"'{book_name}' has been returned.")
+        elif book_name in self.books and self.books[book_name]:
+            print(f"'{book_name}' was not borrowed.")
+        else:
+            print(f"'{book_name}' is not part of the library collection.")
+
+    def display_books(self):
+        """Display the list of books and their availability status."""
+        print(f"\nBooks in '{self.name}' Library:")
+        for book, available in self.books.items():
+            status = "Available" if available else "Unavailable"
+            print(f"- {book} ({status})")
+
+# Example usage
+if __name__ == "__main__":
+    library = Library("Central Library")
+
+    # Adding books to the library
+    library.add_book("Python Programming")
+    library.add_book("Data Science Handbook")
+    library.add_book("Machine Learning Basics")
+
+    # Displaying all books
+    library.display_books()
+
+    # Borrowing a book
+    library.borrow_book("Python Programming")
+    library.borrow_book("Deep Learning")
+
+    # Displaying all books after borrowing
+    library.display_books()
+
+    # Returning a book
+    library.return_book("Python Programming")
+
+    # Displaying all books after returning
+    library.display_books()
